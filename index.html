@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xiaoqi Weng / 翁小淇</title>
+  <meta name="description" content="Xiaoqi Weng / 翁小淇">
+  <meta name="og:title" content="Xiaoqi Weng / 翁小淇">
+  <meta name="og:url" content="https://xiaoqiweng.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Libre Caslon Text','Ma Shan Zheng',serif;
+      color:#2a2a2a;
+      min-height:100dvh;
+      display:flex;align-items:center;justify-content:center;
+      -webkit-font-smoothing:antialiased;
+      background-color:#f0ebe4;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23a)' opacity='0.09'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23b)' opacity='0.05'/%3E%3C/svg%3E");
+      cursor:pointer;
+      perspective:1200px;
+    }
+    ::selection{background:#2a2a2a;color:#f0ebe4}
+
+    .scene{animation:fadeIn .8s ease both}
+
+    .card{
+      position:relative;
+      transform-style:preserve-3d;
+      transition:transform .7s cubic-bezier(.4,.2,.2,1);
+    }
+    body.flipped .card{transform:rotateY(180deg)}
+
+    .front,.back{
+      backface-visibility:hidden;
+      -webkit-backface-visibility:hidden;
+    }
+    .front{text-align:center}
+    .back{
+      position:absolute;
+      top:0;left:0;width:100%;height:100%;
+      transform:rotateY(180deg);
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      text-align:center;
+    }
+
+    /* Front */
+    .name{font-size:1.4rem;font-weight:700;letter-spacing:.06em;line-height:1.1}
+    .name a{color:#1a1a1a;text-decoration:none}
+    .name a:hover{color:#888}
+    .name-cn{font-family:'Ma Shan Zheng',cursive;font-size:.95rem;font-weight:400;letter-spacing:.18em;color:#6a6560;margin-bottom:.35rem}
+    .contact a{display:block;font-size:.78rem;line-height:1.4;color:#555;text-decoration:none;letter-spacing:.03em;transition:color .3s}
+    .contact a:hover{color:#1a1a1a}
+
+    /* Back */
+    .tagline{font-size:.85rem;font-weight:400;font-style:italic;color:#555;letter-spacing:.03em;line-height:1.4;margin-bottom:.45rem}
+    .back-links{display:flex;flex-direction:column;align-items:center;gap:.12rem}
+    .back-links a{font-size:.7rem;color:#888;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .3s}
+    .back-links a:hover{color:#2a2a2a}
+    .captain{margin-top:.15rem}
+    .captain a{font-size:.7rem;color:#aaa;text-decoration:none;letter-spacing:.06em;transition:color .3s;text-transform:none}
+    .captain a:hover{color:#2a2a2a}
+
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  </style>
+</head>
+<body onclick="if(!event.target.closest('a'))this.classList.toggle('flipped')">
+  <div class="scene">
+    <div class="card">
+      <div class="front">
+        <h1 class="name"><a href="https://mak-os.dev">Xiaoqi Weng</a></h1>
+        <p class="name-cn">翁小淇</p>
+        <div class="contact">
+          <a href="mailto:xiaoqi@mak-os.com">xiaoqi@mak-os.com</a>
+          <a href="tel:+447536136840">+44 (0)7536 136840</a>
+          <a href="tel:+8618067217697">+86 180 6721 7697</a>
+        </div>
+      </div>
+      <div class="back">
+        <p class="tagline">Sound · Code · Stories</p>
+        <div class="back-links">
+          <a href="https://github.com/zjnbwxq" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://linkedin.com/in/zjnbwxq" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://scholar.google.com/citations?user=nr3E6yYAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+          <a href="https://mak-os.dev" target="_blank" rel="noopener">Portfolio ↗</a>
+        </div>
+        <div class="captain">
+          <a href="https://xiaoqiweng.com/captain" target="_blank" rel="noopener">& Captain 🐕</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

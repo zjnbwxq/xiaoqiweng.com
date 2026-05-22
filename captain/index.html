@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Captain — Chief Borking Officer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fdf6ee;
+      --card:#fff9f2;
+      --ink:#2a2017;
+      --muted:#8a7e6e;
+      --accent:#e8a44a;
+      --accent2:#c45d3e;
+      --paw:#d4a574;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Libre Caslon Text',serif;
+      background:var(--bg);
+      color:var(--ink);
+      min-height:100dvh;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23a)' opacity='0.06'/%3E%3C/svg%3E");
+    }
+    ::selection{background:var(--accent);color:#fff}
+
+    header{text-align:center;padding:3rem 1.5rem 1rem;animation:dropIn .6s ease both}
+    header h1{font-family:'Caveat',cursive;font-size:3.2rem;font-weight:700;color:var(--ink);line-height:1}
+    header .title{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
+    .age-badge{display:inline-block;font-family:'Caveat',cursive;font-size:.9rem;color:var(--accent2);margin-top:.3rem}
+
+    .photo-zone{display:flex;justify-content:center;padding:1rem 1.5rem 0;animation:dropIn .6s .15s ease both}
+    .photo-frame{position:relative;width:280px;height:280px;border-radius:50%;overflow:hidden;border:4px solid var(--paw);cursor:pointer;transition:transform .15s;box-shadow:0 8px 30px rgba(0,0,0,.1)}
+    .photo-frame:active{transform:scale(.96)}
+    .photo-frame img{width:100%;height:100%;object-fit:cover;pointer-events:none;transition:transform .3s, opacity .15s}
+    .photo-frame:hover img{transform:scale(1.05)}
+
+    .reaction{position:absolute;font-size:1.8rem;pointer-events:none;animation:floatUp 1.2s ease forwards;z-index:10}
+    @keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(1.3)}}
+
+    .pet-counter{text-align:center;padding:.6rem;font-family:'Caveat',cursive;font-size:1.1rem;color:var(--accent2);min-height:2rem}
+
+    .speech{max-width:340px;margin:0 auto;background:var(--card);border:2px solid var(--paw);border-radius:18px;padding:.8rem 1.1rem;position:relative;font-size:.82rem;line-height:1.5;color:var(--ink);min-height:3rem;animation:dropIn .6s .3s ease both}
+    .speech::after{content:'';position:absolute;top:-10px;left:50%;margin-left:-8px;border:8px solid transparent;border-bottom-color:var(--paw)}
+
+    .resume{max-width:420px;margin:1.5rem auto;padding:0 1.5rem;animation:dropIn .6s .45s ease both}
+    .resume h2{font-family:'Caveat',cursive;font-size:1.6rem;color:var(--accent2);margin-bottom:.5rem;text-align:center}
+    .resume-section{margin-bottom:1rem}
+    .resume-section h3{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem;border-bottom:1px solid #e8e0d4;padding-bottom:.15rem}
+    .resume-item{display:flex;justify-content:space-between;align-items:baseline;padding:.2rem 0}
+    .resume-item .role{font-size:.78rem;font-weight:700}
+    .resume-item .date{font-size:.65rem;color:var(--muted);font-style:italic}
+    .resume-entry{margin-bottom:.4rem}
+    .resume-entry .desc{font-size:.72rem;color:var(--muted);margin-top:.05rem}
+
+    .chat-zone{max-width:420px;margin:1rem auto 2rem;padding:0 1.5rem;animation:dropIn .6s .6s ease both}
+    .chat-zone h2{font-family:'Caveat',cursive;font-size:1.6rem;color:var(--accent2);margin-bottom:.5rem;text-align:center}
+    .chat-options{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:.6rem}
+    .chat-btn{font-family:'Libre Caslon Text',serif;font-size:.7rem;padding:.35rem .7rem;border:1.5px solid var(--paw);border-radius:20px;background:transparent;color:var(--ink);cursor:pointer;transition:all .2s}
+    .chat-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .chat-response{background:var(--card);border-radius:12px;padding:.7rem 1rem;font-size:.78rem;line-height:1.5;min-height:2.5rem;border:1px solid #e8e0d4}
+    .chat-response .speaker{font-family:'Caveat',cursive;font-size:1rem;color:var(--accent2);margin-bottom:.15rem}
+
+    footer{text-align:center;padding:1rem;font-size:.6rem;color:var(--muted);letter-spacing:.08em}
+    footer a{color:var(--muted);text-decoration:none;transition:color .2s}
+    footer a:hover{color:var(--ink)}
+
+    .paw-print{position:fixed;font-size:1.2rem;pointer-events:none;animation:pawFade 1.5s ease forwards;z-index:999}
+    @keyframes pawFade{0%{opacity:.6;transform:scale(1) rotate(var(--r))}100%{opacity:0;transform:scale(.6) rotate(var(--r))}}
+    @keyframes dropIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+    /* Birthday mode */
+    .birthday .age-badge{font-size:1.1rem;animation:pulse 1s ease infinite alternate}
+    @keyframes pulse{from{transform:scale(1)}to{transform:scale(1.05)}}
+    .confetti{position:fixed;top:-10px;font-size:1.4rem;pointer-events:none;animation:fall linear forwards;z-index:998}
+    @keyframes fall{0%{opacity:1;transform:translateY(0) rotate(0deg)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+
+    @media(max-width:480px){
+      header h1{font-size:2.5rem}
+      .photo-frame{width:220px;height:220px}
+      .resume,.chat-zone{padding:0 1rem}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Captain</h1>
+  <p class="title">Chief Borking Officer · Border Collie · Professional Good Boy</p>
+  <p class="age-badge" id="ageBadge"></p>
+</header>
+
+<div class="photo-zone">
+  <div class="photo-frame" id="petZone">
+    <img id="captainImg" src="01.jpg" alt="Captain the Border Collie">
+  </div>
+</div>
+
+<div class="pet-counter" id="petCounter">👆 tap to pet Captain!</div>
+
+<div class="speech" id="speechBubble">
+  OH WOW YOU'RE HERE!! I've been waiting FOR YOU specifically!! Not anyone else. YOU!! Do you have sleeves? I LOVE sleeves!!
+</div>
+
+<div class="resume">
+  <h2>📄 Curriculum Vitae</h2>
+
+  <div class="resume-section">
+    <h3>Personal Info</h3>
+    <div class="resume-entry">
+      <p class="desc">Born: September 25, 2024 · Breed: Border Collie · Eye color: Blue (yes, BOTH) · Favourite beverage: Toilet water (still or sparkling, no preference) · Location: Wherever Xiaoqi is (or wherever sleeves are)</p>
+    </div>
+  </div>
+
+  <div class="resume-section">
+    <h3>Professional Experience</h3>
+    <div class="resume-entry">
+      <div class="resume-item">
+        <span class="role">Chief Borking Officer</span>
+        <span class="date">Oct 2024 – present</span>
+      </div>
+      <p class="desc">Specialised in strategic vocalisation during video conferences. When Xiaoqi is in a meeting, I provide unsolicited commentary (UWAAAAA). Zero meetings improved. Morale impact: devastating. Will I stop? No.</p>
+    </div>
+    <div class="resume-entry">
+      <div class="resume-item">
+        <span class="role">Senior Textile Deconstruction Engineer</span>
+        <span class="date">Nov 2024 – present</span>
+      </div>
+      <p class="desc">Systematically deconstructed 10+ garments, primarily targeting sleeve cuffs during meetings. Xiaoqi calls this "destroying my clothes." I call it "avant-garde fashion consulting." Portfolio available upon request.</p>
+    </div>
+    <div class="resume-entry">
+      <div class="resume-item">
+        <span class="role">Plush Toy Surgeon</span>
+        <span class="date">Dec 2024 – present</span>
+      </div>
+      <p class="desc">Performed 30+ successful cotton extraction procedures. Every toy has been fully emptied of its internal organs. 100% extraction rate. Hippocratic oath not applicable (am dog).</p>
+    </div>
+    <div class="resume-entry">
+      <div class="resume-item">
+        <span class="role">Freelance Pneumonia Defeater</span>
+        <span class="date">Jan – Feb 2025</span>
+      </div>
+      <p class="desc">Contracted pneumonia at 4 months old. Defeated it. Client (pneumonia) was NOT satisfied with my performance. Too bad. Undefeated record: 1-0. Key skills utilised: being TOUGH, having blue eyes that make humans cry and try harder to save you.</p>
+    </div>
+    <div class="resume-entry">
+      <div class="resume-item">
+        <span class="role">Trainee, Squirrel Intelligence Division</span>
+        <span class="date">Mar 2025 – present</span>
+      </div>
+      <p class="desc">3 suspects identified at local park. All remain at large. I am building a case. I am VERY patient. (I am not patient. At all. About anything.)</p>
+    </div>
+  </div>
+
+  <div class="resume-section">
+    <h3>Education</h3>
+    <div class="resume-entry">
+      <div class="resume-item">
+        <span class="role">Puppy Training Academy</span>
+        <span class="date">Early 2025</span>
+      </div>
+      <p class="desc">Learned all commands on day one. Chose not to follow them. Instead, dedicated my time to a leadership role: teaching other puppies that rules are merely suggestions. Multiple classmates "corrupted." Instructor used the word "nightmare." I believe she meant "visionary."</p>
+    </div>
+    <div class="resume-entry">
+      <div class="resume-item">
+        <span class="role">PhD in Zoomies (in progress)</span>
+        <span class="date">2025 –</span>
+      </div>
+      <p class="desc">Thesis: "Optimal Trajectory for Living Room Zoomies at 3 AM." Currently collecting data. My supervisor (Xiaoqi) has asked me to stop collecting data. I have declined.</p>
+    </div>
+  </div>
+
+  <div class="resume-section">
+    <h3>Skills</h3>
+    <div class="resume-entry">
+      <p class="desc">
+        Learning commands ★★★★★ · Following commands ★☆☆☆☆ · Focus & patience ☆☆☆☆☆ · Being cute ★★★★★ · Destroying sleeves ★★★★★ · Cotton extraction ★★★★★ · Toilet water sommelier ★★★★☆ · Corrupting other puppies ★★★★★
+      </p>
+    </div>
+  </div>
+
+  <div class="resume-section">
+    <h3>References</h3>
+    <div class="resume-entry">
+      <p class="desc">"Captain is... a lot." — <em>Xiaoqi (my human, who I LOVE more than ANYTHING except maybe toilet water)</em></p>
+    </div>
+    <div class="resume-entry">
+      <p class="desc">"Please do not bring him back." — <em>Puppy Training Academy (they don't understand my GIFT)</em></p>
+    </div>
+  </div>
+</div>
+
+<div class="chat-zone">
+  <h2>💬 Ask Captain</h2>
+  <div class="chat-options" id="chatOptions">
+    <button class="chat-btn" data-q="walk">Wanna go for a walk?</button>
+    <button class="chat-btn" data-q="treat">Want a treat?</button>
+    <button class="chat-btn" data-q="squirrel">See any squirrels?</button>
+    <button class="chat-btn" data-q="clothes">Why do you destroy clothes?</button>
+    <button class="chat-btn" data-q="human">Tell me about your human</button>
+    <button class="chat-btn" data-q="toilet">Why toilet water?</button>
+    <button class="chat-btn" data-q="train">Why are you on a train?</button>
+    <button class="chat-btn" data-q="sick">I heard you were sick?</button>
+    <button class="chat-btn" data-q="toys">What happened to your toys?</button>
+    <button class="chat-btn" data-q="puppyschool">How was puppy school?</button>
+  </div>
+  <div class="chat-response">
+    <div class="speaker">Captain:</div>
+    <span id="chatText">Ask me anything!! I have SO MANY opinions and ALL of them are CORRECT!!</span>
+  </div>
+</div>
+
+<footer>
+  <a href="https://xiaoqiweng.com">← back to Xiaoqi's card</a>
+</footer>
+
+<script>
+// === AGE ===
+const bday = new Date(2024, 8, 25);
+const now = new Date();
+const m_now = now.getMonth(), d_now = now.getDate();
+let months = (now.getFullYear() - bday.getFullYear()) * 12 + m_now - bday.getMonth();
+if (d_now < bday.getDate()) months--;
+const el = document.getElementById('ageBadge');
+
+// Birthday detection
+const isCaptainBday = m_now === 8 && d_now === 25; // Sep 25
+const isXiaoBday = m_now === 7 && d_now === 22; // Aug 22
+
+if (isCaptainBday) {
+  el.innerHTML = '🎂🎉🥳 IT\'S MY BIRTHDAY!! I am the BIRTHDAY BOY!! 🎈🎁🐾';
+  document.body.classList.add('birthday');
+  speechBubble.textContent = "IT'S MY BIRTHDAY!! Did you bring TREATS?! Every day should be my birthday!! Actually every day IS my birthday because I am CAPTAIN!!";
+} else if (isXiaoBday) {
+  el.innerHTML = '🎂🎉 It\'s my human Xiaoqi\'s birthday today!! HAPPY BIRTHDAY TO MY FAVOURITE PERSON!! 🎈🥳';
+  document.body.classList.add('birthday');
+  speechBubble.textContent = "TODAY IS XIAOQI'S BIRTHDAY!! I got them a gift!! It's a slightly chewed sock!! They're going to LOVE IT!! HAPPY BIRTHDAY TO THE BEST HUMAN IN THE WORLD!!";
+} else if (months < 12) {
+  el.textContent = '🎂 ' + months + ' months old — teenager era 😤';
+} else {
+  const y=Math.floor(months/12),m=months%12;
+  el.textContent = '🎂 ' + y + ' year'+(y>1?'s':'') + (m?' & '+m+' month'+(m>1?'s':''):'') + ' old!';
+}
+
+// Birthday confetti
+if (isCaptainBday || isXiaoBday) {
+  const confettiEmoji = ['🎉','🎈','🎂','🥳','🎁','✨','🐾','⭐','💕'];
+  function spawnConfetti() {
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.textContent = confettiEmoji[Math.floor(Math.random() * confettiEmoji.length)];
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 5000);
+      }, i * 200);
+    }
+  }
+  spawnConfetti();
+  setInterval(spawnConfetti, 4000);
+}
+
+// === PETTING ===
+const photos = [];
+for (let i = 1; i <= 20; i++) photos.push(String(i).padStart(2,'0') + '.jpg');
+let lastPhoto = 0;
+const captainImg = document.getElementById('captainImg');
+
+let petCount = 0;
+const petZone = document.getElementById('petZone');
+const petCounter = document.getElementById('petCounter');
+const speechBubble = document.getElementById('speechBubble');
+const reactions = ['❤️','🐾','✨','💕','🦴','⭐','😍','🎾','👕💀'];
+const petSpeech = [
+  "YES YES YES MORE PETS PLEASE!!",
+  "Oh that's the SPOT right there!!",
+  "I am the HAPPIEST boy in the WHOLE WORLD!!",
+  "Don't stop don't stop DON'T STOP!!",
+  "My tail is going SO FAST right now!!",
+  "You are my FAVORITE human!! Don't tell Xiaoqi!!",
+  "THIS IS BETTER THAN TREATS!! ...okay maybe not. But CLOSE!!",
+  "*rolls over aggressively for belly rubs*",
+  "AGAIN!! DO IT AGAIN!! EVERYTHING IS AMAZING!!",
+  "Nice sleeve you got there... would be a SHAME if someone... *tugs*",
+  "I beat PNEUMONIA and I will beat your RESISTANCE to petting me!!",
+  "I'm in my TEENAGER ERA and I will NOT be told what to do!! ...except pets. More pets please.",
+  "Is that... is that a TOILET I hear flushing?? 🚽✨",
+  "I taught 5 puppies to ignore 'sit' last week. They call me SENSEI now!!",
+];
+const milestones = {
+  10: "🏆 Certified Captain Petter! Captain is vibrating with joy!",
+  25: "🥇 Captain has entered a state of pure bliss. Tail speed: MAXIMUM.",
+  50: "💎 LEGENDARY. Captain offers you a chewed-up sleeve as tribute.",
+  100: "👑 ULTIMATE FORM UNLOCKED. Captain is now a sphere of pure chaos and love.",
+};
+
+petZone.addEventListener('click', () => {
+  petCount++;
+  // switch photo
+  let next;
+  do { next = Math.floor(Math.random() * photos.length); } while (next === lastPhoto && photos.length > 1);
+  lastPhoto = next;
+  captainImg.style.opacity = '0';
+  setTimeout(() => { captainImg.src = photos[next]; captainImg.style.opacity = '1'; }, 150);
+
+  const emoji = document.createElement('div');
+  emoji.className = 'reaction';
+  emoji.textContent = reactions[Math.floor(Math.random() * reactions.length)];
+  emoji.style.left = (Math.random() * 60 + 20) + '%';
+  emoji.style.top = (Math.random() * 40 + 20) + '%';
+  petZone.appendChild(emoji);
+  setTimeout(() => emoji.remove(), 1200);
+  petCounter.textContent = milestones[petCount] || 'pets: ' + petCount + ' · Captain\'s chaos level: ' + Math.min(petCount * 12, 9999) + '%';
+  speechBubble.textContent = petSpeech[Math.floor(Math.random() * petSpeech.length)];
+});
+
+// === CHAT ===
+const chatResponses = {
+  walk: [
+    "WALK?! Did you say WALK?! WALK WALK WALK!! I'm already at the door!! I was at the door BEFORE you asked!! Also can I bring this sock I found?? LET'S GOOOOO!!",
+    "I've been practicing my walking and I'm basically a PROFESSIONAL now!! I only pull on the leash 97% of the time!! The other 3% I'm lunging at squirrels!!",
+  ],
+  treat: [
+    "TREAT?! Exhibit A: I am sitting. Exhibit B: my eyes are VERY sad. Exhibit C: I deserve it because I SURVIVED PNEUMONIA. The defense rests. Give treat now.",
+    "Fun fact: I can hear the treat bag from 3 rooms away, through 2 closed doors, while asleep. This is not a skill. This is my SUPERPOWER that I developed after beating pneumonia.",
+  ],
+  squirrel: [
+    "SQUIRREL?! WHERE?! *crashes through window* Oh... you were just asking. But WHERE IS IT though. I have been building a case since MARCH.",
+    "I've been conducting surveillance operations for months. They think they're clever with their little tree hideouts. THEY'RE NOT. I'm VERY smart. I learned 'sit' in 10 seconds. (I just choose not to do it.)",
+  ],
+  clothes: [
+    "Okay FIRST of all, those sleeves were ASKING for it. They were just DANGLING there during a Zoom call, all flappy and vulnerable. I am a BORDER COLLIE. I herd things. Sleeves are things. I was doing my JOB. ...10+ garments is a MODEST body count for someone of my talent.",
+    "Xiaoqi keeps buying new clothes and I keep thinking 'wow, a GIFT for ME!!' The sleeves are the best part. They make the most satisfying ripping sound. I'm not DESTROYING fashion. I'm REINVENTING it. Sleeveless is IN.",
+  ],
+  human: [
+    "My human Xiaoqi is THE BEST. They make weird noises with machines all day and then have meetings where I provide ESSENTIAL commentary (UWAAAAA). They seem stressed about this. I don't know why. I'm HELPING.",
+    "Xiaoqi stayed up ALL NIGHT when I had pneumonia. They were SO worried. I wanted to tell them 'I'm TOUGH, I'm a BORDER COLLIE, I beat EVERYTHING' but instead I just looked at them with my blue eyes and they cried a little. We're best friends.",
+  ],
+  toilet: [
+    "Have you TRIED toilet water?? It's FRESH. It's COLD. It's got that special PORCELAIN finish that really brings out the subtle notes of... water. I'm basically a sommelier. 2024 Bathroom vintage, excellent year. Xiaoqi keeps closing the lid but I have PERSISTENCE.",
+    "Regular water bowl: boring, room temperature, been sitting there for hours. Toilet water: EXCITING, forbidden, always fresh, comes with the thrill of the CHASE (because Xiaoqi runs at me yelling NO every time). The adrenaline improves the flavour.",
+  ],
+  train: [
+    "I'm on a TRAIN because I'm a SOPHISTICATED and COSMOPOLITAN dog!! Also I like the WHOOSH sound and the weird smells and ALL THE STRANGERS WHO PET ME!! Everyone on this train loves me. I can tell because I love THEM.",
+    "Train floors taste different from home floors. VERY educational. Also: trains have SO MANY sleeves walking past me. It takes all my self-control not to— okay I don't have self-control. That's on my CV. Zero stars.",
+  ],
+  sick: [
+    "Oh yeah I had PNEUMONIA in January. At 4 months old!! Most puppies are learning 'shake.' I was learning 'survive.' And I DID because I am CAPTAIN and I am INDESTRUCTIBLE. (The vet and Xiaoqi also helped a bit I guess.) Now I'm STRONGER than ever and I use it as leverage for extra treats.",
+    "I was VERY sick and VERY brave. Xiaoqi was more scared than I was honestly. But I fought through it because there were still SO MANY socks I hadn't relocated and SO MANY sleeves I hadn't destroyed. I had UNFINISHED BUSINESS. You can't defeat a dog with a TO-DO LIST.",
+  ],
+  toys: [
+    "Every toy has a SECRET INSIDE. Did you know that?? Inside EVERY plush toy there's COTTON. And it needs to be FREE. I am a LIBERATOR. I have freed the cotton from 30+ toys. Not a single stuffing left behind. Some call it destruction. I call it SURGERY. Dr. Captain, at your service.",
+    "Xiaoqi keeps buying me 'indestructible' toys. I take this as a PERSONAL CHALLENGE. Current record: 4 minutes from unboxing to full cotton extraction. The toy companies should be THANKING me for quality testing. I accept payment in treats.",
+  ],
+  puppyschool: [
+    "Oh, puppy school!! I LOVED it!! I learned 'sit' and 'down' and 'stay' faster than EVERYONE. Then I taught all the other puppies that you DON'T actually have to do those things!! The instructor said I was a 'bad influence.' I prefer 'THOUGHT LEADER.'",
+    "I was TOP of my class in learning speed. BOTTOM of my class in actually doing what I learned. But I made SO MANY friends because I kept running up to all the other puppies to play instead of paying attention!! 5 puppies followed my example. We formed a MOVEMENT. The instructor did not approve of our movement.",
+  ],
+};
+
+document.getElementById('chatOptions').addEventListener('click', (e) => {
+  if (!e.target.classList.contains('chat-btn')) return;
+  const responses = chatResponses[e.target.dataset.q];
+  const response = responses[Math.floor(Math.random() * responses.length)];
+  const chatText = document.getElementById('chatText');
+  chatText.textContent = '';
+  let i = 0;
+  (function type() {
+    if (i < response.length) { chatText.textContent += response[i]; i++; setTimeout(type, Math.random() * 20 + 10); }
+  })();
+});
+
+// === PAW PRINTS (click only) ===
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.photo-frame') || e.target.closest('.chat-btn') || e.target.closest('a')) return;
+  const paw = document.createElement('div');
+  paw.className = 'paw-print';
+  paw.textContent = '🐾';
+  paw.style.left = (e.clientX - 10) + 'px';
+  paw.style.top = (e.clientY - 10) + 'px';
+  paw.style.setProperty('--r', (Math.random() * 60 - 30) + 'deg');
+  document.body.appendChild(paw);
+  setTimeout(() => paw.remove(), 1500);
+});
+</script>
+</body>
+</html>
